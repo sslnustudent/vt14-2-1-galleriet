@@ -58,10 +58,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
+    <Content Include="JavaScript.js" />
     <Content Include="Thumbnails\Cat1.jpg" />
     <Content Include="Thumbnails\Cat2.jpg" />
     <Content Include="Thumbnails\Cat3.jpg" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Default.aspx.cs">

@@ -10,7 +10,7 @@
     <h1>Galleriet</h1>
     <form id="form1" runat="server">
     <div id="Gallery">
-        <div id="Picture">
+        <div id="PictureDiv">
 
 
         </div>
@@ -18,8 +18,8 @@
 
             <asp:Repeater ID="GalleryRepeater" runat="server" ItemType="Lab2_1Galleriet.FileData" SelectMethod="GalleryRepeater_GetData">
                 <ItemTemplate>
+                    <asp:HyperLink ID="HyperLink1" runat="server"><asp:Image ImageUrl="<%#Item.Name%>" Width="70px" ID="LOL" runat="server" /></asp:HyperLink>
                     
-                    <asp:Image ImageUrl="<%#Item.Name%>" Width="70px" ID="LOL" runat="server" />
                 </ItemTemplate>
                 
 
@@ -40,5 +40,7 @@
                     <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
     </div>
     </form>
+
+    <script src="JavaScript.js"></script>
 </body>
 </html>
