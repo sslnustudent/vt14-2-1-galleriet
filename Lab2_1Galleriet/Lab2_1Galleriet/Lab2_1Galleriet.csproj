@@ -58,9 +58,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
+    <Content Include="DeleteRed.png" />
+    <Content Include="Images\Cat5.jpg" />
     <Content Include="JavaScript.js" />
     <Content Include="Thumbnails\Cat1.jpg" />
-    <Content Include="Thumbnails\Cat2.jpg" />
     <Content Include="Thumbnails\Cat3.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -86,9 +87,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
