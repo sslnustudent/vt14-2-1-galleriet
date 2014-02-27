@@ -27,33 +27,37 @@ namespace Lab2_1Galleriet
                 url = url.Replace("Thumbnails", "Images"); ;
                 ShowImage.ImageUrl = url;
             }
-            
+            //Page.Validators.Add();
         }
 
         protected void OkButton_Click(object sender, EventArgs e)
         {
             if (IsValid)
             {
+                CustomValidator cv = new CustomValidator();
+                cv.ErrorMessage = "Uppladningen misslyckades";
+                cv.IsValid = false;
                 CheckInput.Value = Gal.SaveImage(ImageFileUpload.PostedFile.InputStream, ImageFileUpload.PostedFile.FileName);
                 if (CheckInput.Value != "FAIL")
                 {
                     OkDiv.Visible = true;
-                    
-                    NameLabel.Text = ImageFileUpload.PostedFile.FileName;
- 
+                    LabelOk.Text = "Bilden " + ImageFileUpload.PostedFile.FileName + " har blivit uppladdad!!!";
+                    ShowImage.ImageUrl = "~/Images/" + ImageFileUpload.PostedFile.FileName;
+                    //HyperLink1.NavigateUrl = "http://localhost:5540/Default.aspx?name=Thumbnails/" + ImageFileUpload.PostedFile.FileName;
+                    Response.Redirect("http://localhost:5540/Default.aspx?name=Thumbnails/" + ImageFileUpload.PostedFile.FileName);
+                    //NameLabel.Text = ImageFileUpload.PostedFile.FileName;
+
+                }
+                else
+                {
+                    Page.Validators.Add(cv);
                 }
             }
         }
 
         public IEnumerable<FileData> GalleryRepeater_GetData()
         {
-            return Gal.GetImagesNames();
-            
-        }
-
-        protected void DeleteButton_Click(object sender, EventArgs e)
-        {
-            OkDiv.Visible = false;
+            return Gal.GetImagesNames();          
         }
     }
 }

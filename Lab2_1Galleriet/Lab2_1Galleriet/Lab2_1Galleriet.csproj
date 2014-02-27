@@ -61,6 +61,7 @@
     <Content Include="DeleteRed.png" />
     <Content Include="Images\Cat5.jpg" />
     <Content Include="JavaScript.js" />
+    <Content Include="Style.css" />
     <Content Include="Thumbnails\Cat1.jpg" />
     <Content Include="Thumbnails\Cat3.jpg" />
     <Content Include="Web.config">

@@ -1,0 +1,31 @@
+﻿#Upploads {
+
+    width:400px;
+}
+#OkDiv {
+
+    width:400px;
+    height:40px;
+    background-color:limegreen;
+    border-style:solid;
+    border-width:thin;
+    text-align:center;
+}
+#LabelOk {
+
+
+}
+#HyperLink1 {
+
+    float:right;
+    clear:left;
+    clear:right;
+}
+#PictureDiv {
+
+    margin-top:30px;
+}
+#ValidationSummary1 {
+
+    color:red;
+}

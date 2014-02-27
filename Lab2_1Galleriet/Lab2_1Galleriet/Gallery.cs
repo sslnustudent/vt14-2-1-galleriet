@@ -74,13 +74,20 @@ namespace Lab2_1Galleriet
 
         public string SaveImage(Stream stream, string fileName)
         {
-            if (ImageExists(fileName) == true)
-            {
-                return  "FAIL";
-            }
-            else if (IsValidImage(Image.FromStream(stream)) == true)
+           
+            if (IsValidImage(Image.FromStream(stream)) == true)
             {
                 return "FAIL";
+            }
+            else if (ImageExists(fileName) == true)
+            {
+                var end = fileName.Substring(fileName.Length - 4);
+
+                var image = System.Drawing.Image.FromStream(stream); // stream -> ström med bild 
+                image.Save(PhysicalUploadImagePath + @"/" + fileName.Remove(fileName.Length - 4) + "(2)" + end);
+                var thumbnail = image.GetThumbnailImage(60, 45, null, System.IntPtr.Zero);
+                thumbnail.Save(PhysicalUploadThumbImagePath + @"/" + fileName.Remove(fileName.Length - 4) + "(2)" + end); // path -> fullständig fysisk filnamn inklusive sökväg 
+                return fileName;
             }
             else
             {

@@ -31,22 +31,13 @@ namespace Lab2_1Galleriet {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl OkDiv;
         
         /// <summary>
-        /// NameLabel control.
+        /// LabelOk control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label NameLabel;
-        
-        /// <summary>
-        /// DeleteButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button DeleteButton;
+        protected global::System.Web.UI.WebControls.Label LabelOk;
         
         /// <summary>
         /// HyperLink1 control.
@@ -58,13 +49,13 @@ namespace Lab2_1Galleriet {
         protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
         
         /// <summary>
-        /// LOL control.
+        /// Delete control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image LOL;
+        protected global::System.Web.UI.WebControls.Image Delete;
         
         /// <summary>
         /// ShowImage control.
@@ -146,5 +137,14 @@ namespace Lab2_1Galleriet {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
+        /// ValidationSummary1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
     }
 }
