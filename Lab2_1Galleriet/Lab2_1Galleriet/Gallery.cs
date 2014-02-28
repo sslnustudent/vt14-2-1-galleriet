@@ -22,7 +22,7 @@ namespace Lab2_1Galleriet
             PhysicalUploadImagePath = Path.Combine(AppDomain.CurrentDomain.GetData("APPBASE").ToString(), @"Images");
 
             var invalidChars = new string(Path.GetInvalidFileNameChars());
-            SantizePath = new Regex(string.Format("[{0}]", Regex.Escape(invalidChars))); 
+            SantizePath = new Regex(string.Format("[{0}]", Regex.Escape(invalidChars)));
 
 
         }
@@ -42,62 +42,46 @@ namespace Lab2_1Galleriet
 
         static bool ImageExists(string name)
         {
-            var di = new DirectoryInfo(PhysicalUploadThumbImagePath);
-            var list = di.GetFiles();
-
-            for (int i = 0; i < list.Count(); i++)
-            {
-                if (list[i].Name == name)
-                {
-                    return true;
-                }
- 
-            }
-
-            return false;
- 
+            return File.Exists(Path.Combine(PhysicalUploadImagePath, name));
         }
 
         bool IsValidImage(Image image)
         {
-            var di = new DirectoryInfo(PhysicalUploadThumbImagePath);
-            var list = di.GetFiles();
-            if (image.RawFormat.Guid == System.Drawing.Imaging.ImageFormat.Gif.Guid)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return image.RawFormat.Guid == System.Drawing.Imaging.ImageFormat.Gif.Guid || 
+                image.RawFormat.Guid == System.Drawing.Imaging.ImageFormat.Jpeg.Guid || 
+                image.RawFormat.Guid == System.Drawing.Imaging.ImageFormat.Png.Guid;
         }
 
         public string SaveImage(Stream stream, string fileName)
         {
-           
-            if (IsValidImage(Image.FromStream(stream)) == true)
+            var image = System.Drawing.Image.FromStream(stream);
+            
+            if (!IsValidImage(image))
             {
-                return "FAIL";
+                throw new ArgumentException();
             }
-            else if (ImageExists(fileName) == true)
+            
+            var counter = 2;
+            var end = fileName.Substring(fileName.Length - 4);
+            while (ImageExists(fileName))
             {
-                var end = fileName.Substring(fileName.Length - 4);
+                if (counter > 2)
+                {
+                    fileName = fileName.Remove(fileName.Length - 7) + "(" + counter + ")" + end;
+                }
+                else
+                {
+                    fileName = Path.GetFileNameWithoutExtension(fileName) + "(" + counter + ")" + end;
+                }
+                counter++;
+            }
 
-                var image = System.Drawing.Image.FromStream(stream); // stream -> ström med bild 
-                image.Save(PhysicalUploadImagePath + @"/" + fileName.Remove(fileName.Length - 4) + "(2)" + end);
-                var thumbnail = image.GetThumbnailImage(60, 45, null, System.IntPtr.Zero);
-                thumbnail.Save(PhysicalUploadThumbImagePath + @"/" + fileName.Remove(fileName.Length - 4) + "(2)" + end); // path -> fullständig fysisk filnamn inklusive sökväg 
-                return fileName;
-            }
-            else
-            {
-                var image = System.Drawing.Image.FromStream(stream); // stream -> ström med bild 
-                image.Save(PhysicalUploadImagePath + @"/" + fileName);
-                var thumbnail = image.GetThumbnailImage(60, 45, null, System.IntPtr.Zero);
-                thumbnail.Save(PhysicalUploadThumbImagePath + @"/" + fileName); // path -> fullständig fysisk filnamn inklusive sökväg 
-                return fileName;
-            }
+            image.Save(Path.Combine(PhysicalUploadImagePath, fileName));
+            
+            var thumbnail = image.GetThumbnailImage(60, 45, null, System.IntPtr.Zero);
+            thumbnail.Save(Path.Combine(PhysicalUploadThumbImagePath, fileName));
+            
+            return fileName;
         }
-
     }
 }

@@ -10,46 +10,48 @@ namespace Lab2_1Galleriet
 {
     public partial class Default : System.Web.UI.Page
     {
-
         private Gallery _gal;
-
-        public Gallery Gal 
+        public Gallery Gal
         {
             get { return _gal ?? (_gal = new Gallery()); }
-            
+
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["a"] != null)
+            {
+                var name = Request.QueryString["name"];
+                name = name.Replace("Thumbnails/", "");
+                LabelOk.Text = "Bilden " + name + " har blivit uppladdad!!!";
+                OkDiv.Visible = true;
+                HyperLink1.NavigateUrl = "~/Default.aspx?name=Thumbnails/" + name;
+                Session.Remove("a");
+            }
+
             string url = Request.QueryString["name"];
             if (url != null)
             {
                 url = url.Replace("Thumbnails", "Images"); ;
                 ShowImage.ImageUrl = url;
             }
-            //Page.Validators.Add();
         }
 
         protected void OkButton_Click(object sender, EventArgs e)
         {
             if (IsValid)
             {
-                CustomValidator cv = new CustomValidator();
-                cv.ErrorMessage = "Uppladningen misslyckades";
-                cv.IsValid = false;
-                CheckInput.Value = Gal.SaveImage(ImageFileUpload.PostedFile.InputStream, ImageFileUpload.PostedFile.FileName);
-                if (CheckInput.Value != "FAIL")
+                try
                 {
-                    OkDiv.Visible = true;
-                    LabelOk.Text = "Bilden " + ImageFileUpload.PostedFile.FileName + " har blivit uppladdad!!!";
-                    ShowImage.ImageUrl = "~/Images/" + ImageFileUpload.PostedFile.FileName;
-                    //HyperLink1.NavigateUrl = "http://localhost:5540/Default.aspx?name=Thumbnails/" + ImageFileUpload.PostedFile.FileName;
-                    Response.Redirect("http://localhost:5540/Default.aspx?name=Thumbnails/" + ImageFileUpload.PostedFile.FileName);
-                    //NameLabel.Text = ImageFileUpload.PostedFile.FileName;
-
+                    var name = Gal.SaveImage(ImageFileUpload.PostedFile.InputStream, ImageFileUpload.PostedFile.FileName);
+                    Session["a"] = true;
+                    Response.Redirect("~/Default.aspx?name=Thumbnails/" + name);
                 }
-                else
+                catch (Exception)
                 {
+                    CustomValidator cv = new CustomValidator();
+                    cv.ErrorMessage = "Uppladningen misslyckades";
+                    cv.IsValid = false;
                     Page.Validators.Add(cv);
                 }
             }
@@ -57,7 +59,7 @@ namespace Lab2_1Galleriet
 
         public IEnumerable<FileData> GalleryRepeater_GetData()
         {
-            return Gal.GetImagesNames();          
+            return Gal.GetImagesNames();
         }
     }
 }

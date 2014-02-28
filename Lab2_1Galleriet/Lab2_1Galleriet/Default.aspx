@@ -17,7 +17,7 @@
     <div id="Gallery">
         <div id="PictureDiv">
 
-            <asp:Image ID="ShowImage" ImageUrl="~/Images/Cat5.jpg" runat="server" />
+            <asp:Image ID="ShowImage" ImageUrl="~/Images/Cat2.jpg" runat="server" />
 
         </div>
         <div id="Thumbnails">
